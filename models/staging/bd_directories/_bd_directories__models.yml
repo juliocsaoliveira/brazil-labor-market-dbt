@@ -19,3 +19,19 @@ models:
         description: "Two-letter state abbreviation (e.g. SP, RJ)."
         data_tests:
           - not_null
+  - name: stg_bd_directories__occupation
+    description: "Reference dimension with the Brazilian Occupation Classification (CBO 2002) hierarchy."
+    columns:
+      - name: occupation_code
+        description: "CBO 2002 occupation code. Primary key."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: occupation_name
+        description: "Occupation name/description."
+        data_tests:
+          - not_null
+
+      - name: major_group_name
+        description: "Highest level of the occupation hierarchy (e.g. 'Executivos, dirigentes...')."

@@ -7,3 +7,6 @@ sources:
     tables:
       - name: municipio
         description: "Reference table with Brazilian municipality attributes (name, state, region hierarchy), maintained by Base dos Dados."
+
+      - name: cbo_2002
+        description: "Brazilian Occupation Classification (CBO 2002) reference table, with the full occupation hierarchy."
