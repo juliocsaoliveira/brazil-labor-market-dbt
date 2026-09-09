@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: bd_directories
+    database: basedosdados
+    schema: br_bd_diretorios_brasil
+    tables:
+      - name: municipio
+        description: "Reference table with Brazilian municipality attributes (name, state, region hierarchy), maintained by Base dos Dados."

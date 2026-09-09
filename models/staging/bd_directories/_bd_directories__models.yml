@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: stg_bd_directories__municipality
+    description: "Reference dimension with Brazilian municipality attributes: name, state, and region hierarchy."
+    columns:
+      - name: municipality_id
+        description: "IBGE 7-digit municipality code. Primary key."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: municipality_name
+        description: "Municipality name."
+        data_tests:
+          - not_null
+
+      - name: state_code
+        description: "Two-letter state abbreviation (e.g. SP, RJ)."
+        data_tests:
+          - not_null
