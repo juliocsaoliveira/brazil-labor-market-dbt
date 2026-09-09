@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: stg_caged__movements
+    description: "Staged CAGED worker movement records, one row per admission or dismissal, with columns translated and renamed to English."
+    columns:
+      - name: reference_year
+        description: "Year the movement was reported."
+        data_tests:
+          - not_null
+
+      - name: reference_month
+        description: "Month the movement was reported (1-12)."
+        data_tests:
+          - not_null
+
+      - name: movement_type
+        description: "Type of movement: admission or dismissal."
+
+      - name: movement_balance
+        description: "+1 for an admission, -1 for a dismissal."
+        data_tests:
+          - not_null
+
+      - name: monthly_salary
+        description: "Monthly salary reported at the time of the movement, in BRL."

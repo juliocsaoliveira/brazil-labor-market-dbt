@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: caged
+    database: basedosdados
+    schema: br_me_caged
+    tables:
+      - name: microdados_movimentacao
+        description: "Monthly worker movement records (admissions and dismissals) from Brazil's Ministry of Labor (CAGED), sourced via Base dos Dados."
