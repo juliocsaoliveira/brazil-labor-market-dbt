@@ -38,7 +38,7 @@ All column names, model names, and documentation are in **English**, even though
 ```
                               dim_time
                                  │
-              dim_location ──┐  │  ┌── dim_occupation
+               dim_location ──┐  │  ┌── dim_occupation
                               │  │  │
                               ▼  ▼  ▼
                           ┌───────────────┐
