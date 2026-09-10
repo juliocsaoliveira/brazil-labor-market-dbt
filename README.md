@@ -25,12 +25,12 @@ All column names, model names, and documentation are in **English**, even though
 ### Pipeline flow
 
 ```
-┌──────────────┐     ┌───────────────┐     ┌───────────────┐      ┌─────────────────┐
-│ CAGED source │ --> │    staging    │ --> │  marts/core   │ -->  │ marts/labor_    │
-│ (Base dos    │     │  1:1, renamed │     │  star schema  │      │ market          │
-│  Dados /     │     │  to English,  │     │  dim_* + fct_*│      │ business-facing │
-│  BigQuery)   │     │  typed only   │     │               │      │ analytical marts│
-└──────────────┘     └───────────────┘     └───────────────┘      └─────────────────┘
+┌──────────────┐     ┌───────────────┐     ┌───────────────┐     ┌─────────────────┐
+│ CAGED source │ --> │    staging    │ --> │  marts/core   │ --> │ marts/labor_    │
+│ (Base dos    │     │  1:1, renamed │     │  star schema  │     │ market          │
+│  Dados /     │     │  to English,  │     │  dim_* + fct_*│     │ business-facing │
+│  BigQuery)   │     │  typed only   │     │               │     │ analytical marts│
+└──────────────┘     └───────────────┘     └───────────────┘     └─────────────────┘
 ```
 
 ### Star schema
@@ -38,7 +38,7 @@ All column names, model names, and documentation are in **English**, even though
 ```
                               dim_time
                                  │
-               dim_location ──┐  │  ┌── dim_occupation
+              dim_location ──┐  │  ┌── dim_occupation
                               │  │  │
                               ▼  ▼  ▼
                           ┌───────────────┐
@@ -81,6 +81,18 @@ This section exists because *why* a decision was made matters as much as the dec
 **Fact table materialized as a view, not a partitioned/clustered table.** In a production environment with a BigQuery billing account attached, `fct_movements` would be a physical table partitioned by `reference_date` (monthly) and clustered by `state_code` — the standard pattern for a fact table this size, minimizing bytes scanned per query. This project runs on BigQuery Sandbox (no billing account, to keep the project at zero cost), which caps total storage at 10GB — not enough for the full CAGED history as a physical table. The fact table is scoped to recent years (configurable via a dbt variable) and materialized as a view instead, which consumes no storage quota at the cost of recomputing the query on every read. This is a conscious trade-off for a zero-cost portfolio environment, not an oversight — the partitioning/clustering approach is documented here for context on what the production version would look like.
 
 **Salary outliers excluded using the official CAGED methodology.** Raw salary values include data-entry errors (values as absurd as a trillion reais). Rather than picking an arbitrary cutoff, the analytical mart excludes salaries below 0.3x or above 150x the national minimum wage of the reference year — the same rule the Ministry of Labor applies in its own official Novo CAGED bulletins. Minimum wage by year is stored in a small seed table.
+
+## Example output
+
+A quick illustration of what the modeled data supports: admissions for the "Cientista De Dados" (Data Scientist) occupation, comparing male and female admissions across 2024 and 2025 (salary outliers excluded using the methodology described above).
+
+| Period | Male count | Female count | Male avg. salary | Female avg. salary | Gender gap (%) | Male median | Female median |
+|---|---|---|---|---|---|---|---|
+| 2024 | 608 | 217 | R$9,603.99 | R$8,395.12 | 14.4% | R$8,000.00 | R$8,000.00 |
+| 2025 | 974 | 285 | R$10,447.41 | R$9,703.12 | 7.7% | R$9,000.00 | R$8,677.00 |
+| YoY growth | +60.2% | +31.3% | +8.8% | +15.6% | — | +12.5% | +8.5% |
+
+Male admissions still outnumber female admissions roughly 3-to-1, but the average salary gap narrowed from 14.4% to 7.7% between 2024 and 2025, driven by female average salary growing faster (+15.6%) than male (+8.8%).
 
 ## Tech stack
 

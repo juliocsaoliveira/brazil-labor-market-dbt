@@ -27,3 +27,30 @@ models:
           - not_null
 
       - name: median_salary
+    
+  - name: salary_by_occupation_and_gender
+    description: >
+      Business-facing mart answering: is there a gender pay gap by occupation, and how
+      does it evolve year over year? Grain: one row per year x occupation x gender.
+      Salary outliers excluded using the same 0.3x-150x minimum wage methodology as
+      average_salary_by_sector_and_location.
+    columns:
+      - name: reference_year
+        data_tests:
+          - not_null
+
+      - name: occupation_name
+        data_tests:
+          - not_null
+
+      - name: gender
+        data_tests:
+          - not_null
+
+      - name: admission_count
+        data_tests:
+          - not_null
+
+      - name: average_salary
+        data_tests:
+          - not_null
