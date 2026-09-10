@@ -20,6 +20,14 @@ distinct_locations as (
 
     from municipalities
 
+    union all
+
+    select
+        'UNKNOWN' as state_code,
+        'Not identified' as state_name,
+        'Not identified' as region_name,
+        0 as is_state_capital
+
 )
 
 select

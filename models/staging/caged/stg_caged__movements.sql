@@ -20,7 +20,7 @@ renamed as (
         cnae_2_subclasse                   as sector_code,
 
         -- occupation
-        cbo_2002                           as occupation_code,
+        lpad(cbo_2002, 6, '0')             as occupation_code,
 
         -- worker profile
         categoria                          as worker_category,

@@ -31,3 +31,18 @@ clean-targets:         # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   analytics_portfolio_caged:
+
+seeds:
+  analytics_portfolio_caged:
+    education_level:
+      +column_types:
+        grau_instrucao: string
+    race_color:
+      +column_types:
+        raca_cor: string
+    gender:
+      +column_types:
+        sexo: string
+
+vars:
+  fct_movements_start_year: 2024

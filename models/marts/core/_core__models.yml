@@ -92,3 +92,51 @@ models:
 
       - name: reference_date
         description: "First day of the reference month, as a DATE type, for easier time-series plotting."
+  
+  - name: fct_movements
+    description: >
+      Core fact table: one row per worker movement (admission or dismissal) reported
+      to CAGED. Materialized as a view (not a partitioned/clustered table) to stay
+      within BigQuery Sandbox's free storage quota — in a production environment with
+      billing enabled, this would be a table partitioned by reference_date and
+      clustered by state_code. Scoped to reference_year >= {{ var('fct_movements_start_year') }}
+      via the fct_movements_start_year variable.
+    columns:
+      - name: time_key
+        description: "Foreign key to dim_time."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_time')
+              field: time_key
+
+      - name: location_key
+        description: "Foreign key to dim_location."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_location')
+              field: location_key
+
+      - name: worker_profile_key
+        description: "Foreign key to dim_worker_profile."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_worker_profile')
+              field: worker_profile_key
+
+      - name: occupation_code
+        description: "Foreign key to dim_occupation."
+        data_tests:
+          - relationships:
+              to: ref('dim_occupation')
+              field: occupation_code
+
+      - name: movement_balance
+        description: "+1 for an admission, -1 for a dismissal."
+        data_tests:
+          - not_null
+
+      - name: monthly_salary
+        description: "Monthly salary reported at the time of the movement, in BRL."
