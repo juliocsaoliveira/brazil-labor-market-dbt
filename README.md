@@ -22,7 +22,36 @@ The project follows the layered modeling pattern common in production analytics 
 
 All column names, model names, and documentation are in **English**, even though the raw source is in Portuguese — translation happens at the staging layer, since the project targets international job applications.
 
+### Pipeline flow
+
+```
+┌──────────────┐     ┌───────────────┐     ┌───────────────┐      ┌─────────────────┐
+│ CAGED source │ --> │    staging    │ --> │  marts/core   │ -->  │ marts/labor_    │
+│ (Base dos    │     │  1:1, renamed │     │  star schema  │      │ market          │
+│  Dados /     │     │  to English,  │     │  dim_* + fct_*│      │ business-facing │
+│  BigQuery)   │     │  typed only   │     │               │      │ analytical marts│
+└──────────────┘     └───────────────┘     └───────────────┘      └─────────────────┘
+```
+
 ### Star schema
+
+```
+                              dim_time
+                                 │
+              dim_location ──┐  │  ┌── dim_occupation
+                              │  │  │
+                              ▼  ▼  ▼
+                          ┌───────────────┐
+                          │ fct_movements │
+                          │  (1 row per   │
+                          │   movement)   │
+                          └───────────────┘
+                                 ▲
+                                 │
+                        dim_worker_profile
+                    (education, race, gender,
+                          age bracket)
+```
 
 | Table | Type | Grain |
 |---|---|---|
@@ -31,6 +60,7 @@ All column names, model names, and documentation are in **English**, even though
 | `dim_location` | Dimension | One row per state x capital/interior indicator |
 | `dim_occupation` | Dimension | One row per CBO 2002 occupation code |
 | `dim_worker_profile` | Mini-dimension | One row per distinct combination of education level, race/color, gender, and age bracket that occurs in the data |
+
 
 ## Key modeling decisions
 
