@@ -2,6 +2,8 @@
 
 An end-to-end analytics engineering project that models Brazil's official labor market data — built to practice and showcase dbt + BigQuery skills.
 
+[View live dbt docs (lineage graph, model documentation, tests)](https://juliocsaoliveira.github.io/brazil-labor-market-dbt/#!/overview)
+
 ## Overview
 
 This project transforms raw monthly worker movement records (admissions and dismissals) from **CAGED** (Cadastro Geral de Empregados e Desempregados), Brazil's official labor registry maintained by the Ministry of Labor, into a clean, tested, documented, analytics-ready star schema.
