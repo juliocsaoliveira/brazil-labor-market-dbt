@@ -6,7 +6,7 @@ An end-to-end analytics engineering project that models Brazil's official labor 
 
 ## Overview
 
-This project transforms raw monthly worker movement records (admissions and dismissals) from **CAGED** (Cadastro Geral de Empregados e Desempregados), Brazil's official labor registry maintained by the Ministry of Labor, into a clean, tested, documented, analytics-ready star schema.
+This project transforms raw monthly worker movement records (admissions and dismissals) from **CAGED** ("Cadastro Geral de Empregados e Desempregados"), Brazil's official labor registry maintained by the Ministry of Labor, into a clean, tested, documented, analytics-ready star schema.
 
 The project follows the layered modeling pattern common in production analytics engineering — staging, dimensional modeling, and business-facing marts — with an emphasis on documenting the reasoning behind each modeling decision, not just the SQL itself.
 
@@ -65,8 +65,6 @@ All column names, model names, and documentation are in **English**, even though
 
 
 ## Key modeling decisions
-
-This section exists because *why* a decision was made matters as much as the decision itself — this is the part meant to show analytical judgment, not just implementation.
 
 **Mini-dimension for demographic attributes.** Instead of joining `education_level`, `race_color`, `gender`, and `age_bracket` separately onto the fact table, they're combined into a single `dim_worker_profile` with a surrogate key. This is the classic Kimball mini-dimension pattern: these four attributes have low combined cardinality, so pre-computing the distinct combinations that actually occur in the data keeps the fact table narrower and the joins simpler, at the cost of losing the ability to query each attribute in isolation without going through the mini-dimension — an acceptable trade-off here, since the project's analytical questions are aggregate by nature.
 
