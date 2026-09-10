@@ -24,10 +24,10 @@ renamed as (
 
         -- worker profile
         categoria                          as worker_category,
-        grau_instrucao                     as education_level,
+        grau_instrucao                     as education_level_code,
         idade                              as age,
-        raca_cor                           as race_color,
-        sexo                               as gender,
+        raca_cor                           as race_color_code,
+        sexo                               as gender_code,
         tipo_deficiencia                   as disability_type,
         indicador_aprendiz                 as is_apprentice,
 

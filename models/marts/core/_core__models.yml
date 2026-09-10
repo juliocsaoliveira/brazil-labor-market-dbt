@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: dim_worker_profile
+    description: >
+      Mini-dimension combining education level, race/color, gender, and age bracket
+      into a single dimension, keyed by a surrogate key. Grain: one row per distinct
+      combination of these attributes that actually occurs in the CAGED data.
+    columns:
+      - name: worker_profile_key
+        description: "Surrogate key, hash of education_level, race_color, gender, and age_bracket."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: education_level
+        description: "Worker's highest completed education level."
+
+      - name: race_color
+        description: "Worker's self-declared race/color, per IBGE/eSocial classification."
+
+      - name: gender
+        description: "Worker's gender as reported to eSocial."
+
+      - name: age_bracket
+        description: "Age bucketed into ranges: <18, then 5-year bands from 18-24 up to 60-64, then 65+."

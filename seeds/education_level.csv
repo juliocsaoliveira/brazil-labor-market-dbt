@@ -1,0 +1,14 @@
+grau_instrucao,education_level
+1,Illiterate
+2,Incomplete elementary school (up to 5th grade)
+3,Complete elementary school (5th grade)
+4,Incomplete elementary school (6th-9th grade)
+5,Complete elementary school
+6,Incomplete high school
+7,Complete high school
+8,Incomplete higher education
+9,Complete higher education
+10,Master's degree
+11,Doctorate degree
+99,Not identified
+80,Postgraduate education completed
