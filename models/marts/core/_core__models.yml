@@ -24,3 +24,29 @@ models:
 
       - name: age_bracket
         description: "Age bucketed into ranges: <18, then 5-year bands from 18-24 up to 60-64, then 65+."
+
+  - name: dim_location
+    description: >
+      Location dimension collapsed to state + capital/interior indicator (no
+      municipality-level granularity), to keep cardinality low while retaining
+      a meaningful geographic signal.
+    columns:
+      - name: location_key
+        description: "Surrogate key, hash of state_code and is_state_capital."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: state_code
+        description: "Two-letter state abbreviation."
+        data_tests:
+          - not_null
+
+      - name: state_name
+        description: "Full state name."
+
+      - name: region_name
+        description: "Brazilian macro-region (North, Northeast, etc.)."
+
+      - name: is_state_capital
+        description: "1 if this row represents the state capital, 0 otherwise."
