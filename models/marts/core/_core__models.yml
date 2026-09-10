@@ -50,3 +50,45 @@ models:
 
       - name: is_state_capital
         description: "1 if this row represents the state capital, 0 otherwise."
+
+  - name: dim_occupation
+    description: >
+      Occupation dimension based on the Brazilian Occupation Classification (CBO 2002),
+      using the natural key directly since occupation_code is already unique and stable.
+    columns:
+      - name: occupation_code
+        description: "CBO 2002 occupation code. Natural primary key."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: occupation_name
+        description: "Occupation name/description."
+        data_tests:
+          - not_null
+
+      - name: major_group_name
+        description: "Highest level of the occupation hierarchy."
+
+  - name: dim_time
+    description: >
+      Time dimension at year-month grain, matching the reporting periodicity of CAGED.
+    columns:
+      - name: time_key
+        description: "Surrogate key, hash of reference_year and reference_month."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: reference_year
+        description: "Reference year."
+        data_tests:
+          - not_null
+
+      - name: reference_month
+        description: "Reference month (1-12)."
+        data_tests:
+          - not_null
+
+      - name: reference_date
+        description: "First day of the reference month, as a DATE type, for easier time-series plotting."
