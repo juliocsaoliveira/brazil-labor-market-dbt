@@ -27,8 +27,8 @@ All column names, model names, and documentation are in **English**, even though
 ```
 ┌──────────────┐     ┌───────────────┐     ┌───────────────┐     ┌─────────────────┐
 │ CAGED source │ --> │    staging    │ --> │  marts/core   │ --> │ marts/labor_    │
-│ (Base dos    │     │  1:1, renamed │     │  star schema  │     │ market          │
-│  Dados /     │     │  to English,  │     │  dim_* + fct_*│     │ business-facing │
+│ ("Base dos   │     │  1:1, renamed │     │  star schema  │     │ market          │
+│  Dados" /    │     │  to English,  │     │  dim_* + fct_*│     │ business-facing │
 │  BigQuery)   │     │  typed only   │     │               │     │ analytical marts│
 └──────────────┘     └───────────────┘     └───────────────┘     └─────────────────┘
 ```
