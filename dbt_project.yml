@@ -43,6 +43,9 @@ seeds:
     gender:
       +column_types:
         sexo: string
+    sector_section:
+      +column_types:
+        cnae_2_secao: string
 
 vars:
   fct_movements_start_year: 2024

@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: average_salary_by_sector_and_location
+    description: >
+      Business-facing mart answering: how does average/median salary vary by sector,
+      occupation, state, capital/interior, and admission vs. dismissal? Salary outliers
+      are excluded using the same methodology as official Novo CAGED bulletins (below
+      0.3x or above 150x the minimum wage of the reference year).
+    columns:
+      - name: reference_year
+        data_tests:
+          - not_null
+
+      - name: movement_direction
+        description: "Admission or Dismissal, derived from movement_balance."
+        data_tests:
+          - accepted_values:
+              values: ["Admission", "Dismissal", "Unknown"]
+
+      - name: movement_count
+        data_tests:
+          - not_null
+
+      - name: average_salary
+        data_tests:
+          - not_null
+
+      - name: median_salary

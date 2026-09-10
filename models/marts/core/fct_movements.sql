@@ -72,8 +72,9 @@ select
     -- attributes kept at grain
     reference_year,
     reference_month,
-    date(reference_year, reference_month, 1) as reference_date,
+    date(reference_year, reference_month, 1) as reference_date,    
     coalesce(state_code, 'UNKNOWN') as state_code,
+    coalesce(is_state_capital, 0) as is_state_capital,
     sector_code,
     sector_section_code,
     worker_category,
